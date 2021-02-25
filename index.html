@@ -1,20 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <title>全网VIP视频解析</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <style>
 	    .header{
-		    margin-top:10%;
+		    margin-top:8%;
 	    }
 	    .main{
-		    padding:10px 15%;
-	    }
-	    .footer{
-		    padding:10px 15%;
+			padding: 10px 20%;
 	    }
     </style>
 <body>
@@ -44,11 +43,9 @@
 			    </div>
 			  </div>
 			</form>
-			</div>
-			<hr />
-			
+		</div>
+		<hr />
 	    <div class="main">
-			<h4>如播放地址失效，可重新设置API列表。<a href="javascript:setDefault();">恢复默认</a></h4>
 			<div class="form-horizontal">
 				<div class="form-group">
 			    <label for="url" class="col-sm-2 control-label">API列表</label>
@@ -63,59 +60,50 @@ http://api.bbbbbb.me/yunjx/?url=
 http://api.bbbbbb.me/playm3u8/?url=
 http://api.bbbbbb.me/vip/?url=</textarea>
 			    </div>
-			  </div>
+			  	</div>
 	    	</div>
 	    </div>
+		<div class="footer text-center">
+			<a href="https://blog.mnsd.xyz/">明尼苏达的博客</a>
+		</div>
 	</div>
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script>
-	    function setApi(){
-		    $("#api").children().remove();
-			var apilist = $("#apiList").val().split(/\r?\n/);
-			for(var i=0;i<apilist.length;i++){
-				$("#api").append("<option>"+apilist[i]+"</option>");
-			}
-	    }
-		$("#apiList").blur(function(){
-			setApi();
-			$.cookie("apiList",$("#apiList").val());
-		});
-		$("#play").click(function(){
-			$api = $("#api").val();
-			$url = $("#url").val();
-			if($url == "" || $url == null || !/^http.*$/.test($url)){
-				alert('视频地址不正确！');
-				return;
-			}
-			if($url == "" || $url == null || !/^http.*=$/.test($api)){
-				alert('无效API！');
-				return;
-			}
-			window.open($api+$url);
-		});
-	    function init(){
-		    var ckapi = $.cookie("apiList");
-		    if(ckapi && ckapi != ""){
-			    $("#apiList").val(ckapi);
-		    }
-		    setApi();
-	    }
-	    init();
-      function setDefault(){
-        $.cookie("apiList","");
-        window.location.reload();
-      }
-    </script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?65e1c6689693082cffb3b7e1f2d8027f";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 </body>
+<script>
+	function setApi(){
+		$("#api").children().remove();
+		var apilist = $("#apiList").val().split(/\r?\n/);
+		for(var i=0;i<apilist.length;i++){
+			$("#api").append("<option>"+apilist[i]+"</option>");
+		}
+	}
+	$("#apiList").blur(function(){
+		setApi();
+		$.cookie("apiList",$("#apiList").val());
+	});
+	$("#play").click(function(){
+		$api = $("#api").val();
+		$url = $("#url").val();
+		if($url == "" || $url == null || !/^http.*$/.test($url)){
+			alert('视频地址不正确！');
+			return;
+		}
+		if($url == "" || $url == null || !/^http.*=$/.test($api)){
+			alert('无效API！');
+			return;
+		}
+		window.open($api+$url);
+	});
+	function init(){
+		var ckapi = $.cookie("apiList");
+		if(ckapi && ckapi != ""){
+			$("#apiList").val(ckapi);
+		}
+		setApi();
+	}
+	init();
+  function setDefault(){
+	$.cookie("apiList","");
+	window.location.reload();
+  }
+</script>
 </html>
